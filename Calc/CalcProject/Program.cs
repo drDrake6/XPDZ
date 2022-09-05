@@ -11,11 +11,3 @@ namespace CalcProject
         }
     }
 }
-<<<<<<< HEAD
- 
-//ololo
-
-=======
-
-//azaza
->>>>>>> 06e357cd47e43e691aa1f12f281ab19c07e0ec51

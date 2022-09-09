@@ -12,6 +12,10 @@ namespace CalcProject
             Console.WriteLine(App.RomanNumber.ATOR(9));
             Console.WriteLine(7 / 2);
             Console.WriteLine(App.RomanNumber.Nearest(9));
+
+            var x = new App.RomanNumber(9);
+            string str = x.ToString();
+            Console.WriteLine(str);
         }
     }
 }

@@ -222,10 +222,22 @@ namespace TestProject
             RomanNumber rn10 = RomanNumber.Add("I", "IX");
             RomanNumber rn9 = RomanNumber.Add(rn5, "IV");
             RomanNumber rn13 = RomanNumber.Add(rn5, rn8);
-            // Задание: составить утверждения для тестирования RomanNumber.Add
-            // Реализовать RomanNumber.Add и необходимые перегрузки
-            // Расширить тесты с учетом исключительных ситуаций
-            // ! В стиле ХР не делаем лишнего
+        }
+
+        [TestMethod]
+        public void ObjectToRNTest()
+        {
+            RomanNumber n2 = new(2);
+            RomanNumber n3 = new(3);
+            RomanNumber n5 = new(5);
+            Assert.ThrowsException<ArgumentNullException>(
+                    () => RomanNumber.Add(null as object, null as object));
+            Assert.AreEqual(n5, RomanNumber.Add(n2 as object, n3 as object));
+            Assert.AreEqual(n5, RomanNumber.Add(2 as object, 3 as object));
+            Assert.AreEqual(n5, RomanNumber.Add("II" as object, "III" as object));
+            Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
+                    () => RomanNumber.Add(52.36 as object, 2.45 as object)
+                ).Message.StartsWith("Invalid argument type"));
         }
     }
 }

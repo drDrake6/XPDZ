@@ -121,8 +121,7 @@ namespace CalcProject.App
             return result;
         }
         public RomanNumber Add(RomanNumber right)
-        {
-            if (right == null) throw new ArgumentNullException("number was null");
+        {            
             return Add(this, right);
         }
 
@@ -132,7 +131,6 @@ namespace CalcProject.App
         }
         public RomanNumber Add(string right)
         {
-            if (right == null) throw new ArgumentNullException("number was null");
             return Add(new RomanNumber(RTOA(right)));
         }
 
@@ -143,20 +141,15 @@ namespace CalcProject.App
 
         public static RomanNumber Add(RomanNumber left, int right)
         {
-            if (left == null) throw new ArgumentNullException("left number was null");
             return Add(left, new RomanNumber(right));
         }
         public static RomanNumber Add(string left, string right)
         {
-            if (left == null || right == null) 
-                throw new ArgumentNullException("some number was null");
             return Add(new RomanNumber(RTOA(left)), new RomanNumber(RTOA(right)));
         }
 
         public static RomanNumber Add(RomanNumber left, string right)
         {
-            if (left == null || right == null)
-                throw new ArgumentNullException("some number was null");
             return Add(left, new RomanNumber(RTOA(right)));
         }
 
@@ -165,6 +158,29 @@ namespace CalcProject.App
             if (left == null || right == null)
                 throw new ArgumentNullException("some number was null");
             return new(left.val + right.val);
+        }
+
+        private RomanNumber(object value)
+        {
+            if (value is null)
+                throw new ArgumentNullException(nameof(value));
+            else if (value is RomanNumber rn) val = rn.val;
+            else if (value is int int_val) val = int_val;
+            else if (value is string s_val) val = RTOA(s_val);
+            else throw new ArgumentException($"Invalid argument type {value.GetType()}");
+        }
+
+        public static RomanNumber Add(object obj1, object obj2)
+        {
+            RomanNumber rn1, rn2;
+
+            if (obj1 is RomanNumber val1) rn1 = val1;
+            else rn1 = new RomanNumber(obj1);
+
+            if (obj2 is RomanNumber val2) rn2 = val2;
+            else rn2 = new RomanNumber(obj2);
+
+            return new RomanNumber(rn1.val + rn2.val);
         }
     }
 }

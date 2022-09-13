@@ -123,17 +123,48 @@ namespace CalcProject.App
         public RomanNumber Add(RomanNumber right)
         {
             if (right == null) throw new ArgumentNullException("number was null");
-            return new(this.val + right.val);
+            return Add(this, right);
         }
 
         public RomanNumber Add(int right)
         {
-            return new(this.val + right);
+            return Add(new RomanNumber(right));
         }
         public RomanNumber Add(string right)
         {
             if (right == null) throw new ArgumentNullException("number was null");
-            return new(this.val + RTOA(right));
+            return Add(new RomanNumber(RTOA(right)));
+        }
+
+        public static RomanNumber Add(int left, int right)
+        {
+            return Add(new RomanNumber(left), new RomanNumber(right));
+        }
+
+        public static RomanNumber Add(RomanNumber left, int right)
+        {
+            if (left == null) throw new ArgumentNullException("left number was null");
+            return Add(left, new RomanNumber(right));
+        }
+        public static RomanNumber Add(string left, string right)
+        {
+            if (left == null || right == null) 
+                throw new ArgumentNullException("some number was null");
+            return Add(new RomanNumber(RTOA(left)), new RomanNumber(RTOA(right)));
+        }
+
+        public static RomanNumber Add(RomanNumber left, string right)
+        {
+            if (left == null || right == null)
+                throw new ArgumentNullException("some number was null");
+            return Add(left, new RomanNumber(RTOA(right)));
+        }
+
+        public static RomanNumber Add(RomanNumber left, RomanNumber right)
+        {
+            if (left == null || right == null)
+                throw new ArgumentNullException("some number was null");
+            return new(left.val + right.val);
         }
     }
 }

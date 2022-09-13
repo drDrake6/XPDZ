@@ -198,6 +198,34 @@ namespace TestProject
                     () => n2.Add((null as String)!)
                 ).Message;
             Assert.IsTrue(m.Contains("number was null"));
+        } //doesn't exists
+
+        [TestMethod]
+        public void RomanNumberInvalidAdd()
+        {
+            RomanNumber n2 = new(2);
+            RomanNumber n3 = new(3);
+            RomanNumber n5 = new(5);
+            Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
+                    () => n2.Add("XR")).Message.EndsWith("doesn't exists"));
+            Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
+                    () => n2.Add("X-V")).Message.EndsWith("doesn't exists"));
+            Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
+                    () => n2.Add("IV ")).Message.EndsWith("doesn't exists"));
+        }
+
+        [TestMethod]
+        public void AddStaticTest()
+        {
+            RomanNumber rn5 = RomanNumber.Add(2, 3);
+            RomanNumber rn8 = RomanNumber.Add(rn5, 3);
+            RomanNumber rn10 = RomanNumber.Add("I", "IX");
+            RomanNumber rn9 = RomanNumber.Add(rn5, "IV");
+            RomanNumber rn13 = RomanNumber.Add(rn5, rn8);
+            // Задание: составить утверждения для тестирования RomanNumber.Add
+            // Реализовать RomanNumber.Add и необходимые перегрузки
+            // Расширить тесты с учетом исключительных ситуаций
+            // ! В стиле ХР не делаем лишнего
         }
     }
 }

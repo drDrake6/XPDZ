@@ -32,27 +32,27 @@ namespace TestProject
         [TestMethod]
         public void RomanNumberInvalidDigit()
         {
-            Assert.AreEqual("0 doesn't exists",
+            Assert.AreEqual(Resources.NotExistMessage('0'),
                 Assert.ThrowsException<ArgumentException>(
                     () => RomanNumber.RTOA("0")
                 ).Message);
 
-            Assert.AreEqual("G doesn't exists",
+            Assert.AreEqual(Resources.NotExistMessage('G'),
                 Assert.ThrowsException<ArgumentException>(
                     () => RomanNumber.RTOA("G")
                 ).Message);
 
-            Assert.AreEqual("¯ doesn't exists",
+            Assert.AreEqual(Resources.NotExistMessage('¯'),
                 Assert.ThrowsException<ArgumentException>(
                     () => RomanNumber.RTOA("¯")
                 ).Message);
 
-            Assert.AreEqual("% doesn't exists",
+            Assert.AreEqual(Resources.NotExistMessage('%'),
                 Assert.ThrowsException<ArgumentException>(
                     () => RomanNumber.RTOA("%")
                 ).Message);
 
-            Assert.AreEqual("@ doesn't exists",
+            Assert.AreEqual(Resources.NotExistMessage('@'),
                 Assert.ThrowsException<ArgumentException>(
                     () => RomanNumber.RTOA("@")
                 ).Message);
@@ -63,23 +63,23 @@ namespace TestProject
         {
             Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
                     () => RomanNumber.RTOA("XIX1")
-                ).Message.EndsWith("doesn't exists"));
+                ).Message.EndsWith(Resources.NotExistMessage(' ')[^2..14]));
 
             Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
                     () => RomanNumber.RTOA(" XX")
-                ).Message.EndsWith("doesn't exists"));
+                ).Message.EndsWith(Resources.NotExistMessage(' ')[^2..14]));
 
             Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
                     () => RomanNumber.RTOA("X X")
-                ).Message.EndsWith("doesn't exists"));
+                ).Message.EndsWith(Resources.NotExistMessage(' ')[^2..14]));
 
             Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
                     () => RomanNumber.RTOA("cxx")
-                ).Message.EndsWith("doesn't exists"));
+                ).Message.EndsWith(Resources.NotExistMessage(' ')[^2..14]));
 
             Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
                     () => RomanNumber.RTOA("hello")
-                ).Message.EndsWith("doesn't exists"));
+                ).Message.EndsWith(Resources.NotExistMessage(' ')[^2..14]));
         }
 
         [TestMethod]
@@ -165,7 +165,7 @@ namespace TestProject
             var m = Assert.ThrowsException<ArgumentNullException>(
                     () => n2.Add((RomanNumber)null)
                 ).Message;
-            Assert.IsTrue(m.Contains("number was null"));
+            Assert.IsTrue(m.Contains(Resources.NullNumberMessage()));
         }
 
         [TestMethod]
@@ -197,7 +197,8 @@ namespace TestProject
             var m = Assert.ThrowsException<ArgumentNullException>(
                     () => n2.Add((null as String)!)
                 ).Message;
-            Assert.IsTrue(m.Contains("number was null"));
+            Assert.IsTrue(m.Contains(Resources.NullNumberMessage()) 
+                || m.Contains(Resources.NullStringMessage()));
         } //doesn't exists
 
         [TestMethod]
@@ -207,11 +208,11 @@ namespace TestProject
             RomanNumber n3 = new(3);
             RomanNumber n5 = new(5);
             Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
-                    () => n2.Add("XR")).Message.EndsWith("doesn't exists"));
+                    () => n2.Add("XR")).Message.EndsWith(Resources.NotExistMessage(' ')[^2..14]));
             Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
-                    () => n2.Add("X-V")).Message.EndsWith("doesn't exists"));
+                    () => n2.Add("X-V")).Message.EndsWith(Resources.NotExistMessage(' ')[^2..14]));
             Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
-                    () => n2.Add("IV ")).Message.EndsWith("doesn't exists"));
+                    () => n2.Add("IV ")).Message.EndsWith(Resources.NotExistMessage(' ')[^2..14]));
         }
 
         [TestMethod]
@@ -237,7 +238,7 @@ namespace TestProject
             Assert.AreEqual(n5, RomanNumber.Add("II" as object, "III" as object));
             Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
                     () => RomanNumber.Add(52.36 as object, 2.45 as object)
-                ).Message.StartsWith("Invalid argument type"));
+                ).Message.StartsWith(Resources.InvalidArgumentMessage(n5.GetType())[..21]));
         }
     }
 }

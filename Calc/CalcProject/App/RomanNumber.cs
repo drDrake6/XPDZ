@@ -50,8 +50,8 @@ namespace CalcProject.App
         }
         public static int RTOA(string str)
         {
-            if (str == null) throw new ArgumentNullException("string was null");
-            if (str.Length == 0) throw new ArgumentNullException("string was empty");
+            if (str == null) throw new ArgumentNullException(Resources.NullStringMessage());
+            if (str.Length == 0) throw new ArgumentNullException(Resources.EmptyStringMessage());
 
             bool counter = false;
             if (str.StartsWith("-"))
@@ -69,13 +69,13 @@ namespace CalcProject.App
 
             left = rnums.IndexOf(str[0]);
             if (left == -1)
-                throw new ArgumentException(str[0] + " doesn't exists");
+                throw new ArgumentException(Resources.NotExistMessage(str[0]));
 
             for (int i = 0; i < str.Length - 1; i++)
             {
                 right = rnums.IndexOf(str[i + 1]);
                 if (right == -1)
-                    throw new ArgumentException(str[i + 1] + " doesn't exists");               
+                    throw new ArgumentException(Resources.NotExistMessage(str[i + 1]));               
 
                 if (left < right) 
                     num -= anums[left];
@@ -156,7 +156,7 @@ namespace CalcProject.App
         public static RomanNumber Add(RomanNumber left, RomanNumber right)
         {
             if (left == null || right == null)
-                throw new ArgumentNullException("some number was null");
+                throw new ArgumentNullException(Resources.NullNumberMessage());
             return new(left.val + right.val);
         }
 
@@ -167,7 +167,7 @@ namespace CalcProject.App
             else if (value is RomanNumber rn) val = rn.val;
             else if (value is int int_val) val = int_val;
             else if (value is string s_val) val = RTOA(s_val);
-            else throw new ArgumentException($"Invalid argument type {value.GetType()}");
+            else throw new ArgumentException(Resources.InvalidArgumentMessage(value.GetType()));
         }
 
         public static RomanNumber Add(object obj1, object obj2)

@@ -15,60 +15,50 @@ namespace CalcProject.App
             _resources = resources;
             RomanNumber.Resources = resources;  
         }
+        void EnterNumber(ref RomanNumber rn)
+        {
+            while (true)
+            {
+                Console.WriteLine(_resources.EnterNumber());
+                String inp = Console.ReadLine();
+
+                try
+                {
+                    rn = new RomanNumber(RomanNumber.RTOA(inp!));
+                }
+                catch (ArgumentNullException)
+                {
+                    Console.WriteLine(_resources.ConsoleErr());
+                    continue;
+                }
+
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    continue;
+                }
+
+                return;
+            }
+        }
         public void Run()
         {
 
-            RomanNumber rn1;
-            RomanNumber rn2;
-            while (true)
+            RomanNumber rn1 = null;
+            RomanNumber rn2 = null;
+
+            EnterNumber(ref rn1);
+            EnterNumber(ref rn2);
+
+            try
             {
-                Console.WriteLine(_resources.EnterNumber());
-                String inp = Console.ReadLine();
-                
-                try
-                {
-                    rn1 = new RomanNumber(RomanNumber.RTOA(inp!));
-                }
-                catch (ArgumentNullException)
-                {
-                    Console.WriteLine(_resources.ConsoleErr());
-                    continue;
-                }
-
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    continue;
-                }
-
-                break;
+                Console.WriteLine(_resources.Result(rn1.Add(rn2).ToString()));
             }
 
-            while (true)
+            catch (Exception ex)
             {
-                Console.WriteLine(_resources.EnterNumber());
-                String inp = Console.ReadLine();
-
-                try
-                {
-                    rn2 = new RomanNumber(RomanNumber.RTOA(inp!));
-                }
-                catch (ArgumentNullException)
-                {
-                    Console.WriteLine(_resources.ConsoleErr());
-                    continue;
-                }
-
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    continue;
-                }
-
-                break;
+                Console.WriteLine(ex.Message);
             }
-
-            Console.WriteLine(_resources.Result(rn1.Add(rn2).ToString()));
         }
     }
 }

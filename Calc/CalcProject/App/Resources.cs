@@ -57,5 +57,35 @@ namespace CalcProject.App
                 _ => throw new ArgumentException("Culture unsupported")
             };
         }
+
+        public static string EnterNumber(char digit, string culture = "en-US")
+        {
+            return culture switch
+            {
+                "en-US" => $"{digit} enter a number",
+                "uk-UA" => $"{digit} введіть число",
+                _ => throw new ArgumentException("Culture unsupported")
+            };
+        }
+
+        public static string EnterOperation(char digit, string culture = "en-US")
+        {
+            return culture switch
+            {
+                "en-US" => $"{digit} enter an operation",
+                "uk-UA" => $"{digit} введіть операцію",
+                _ => throw new ArgumentException("Culture unsupported")
+            };
+        }
+
+        public static string Result(char digit, string culture = "en-US")
+        {
+            return culture switch
+            {
+                "en-US" => $"{digit} result",
+                "uk-UA" => $"{digit} результат",
+                _ => throw new ArgumentException("Culture unsupported")
+            };
+        }
     }
 }

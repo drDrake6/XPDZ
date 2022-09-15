@@ -4,13 +4,21 @@ using System;
 
 namespace TestProject
 {
+    
     [TestClass]
     public class AppTest
     {
+        public Resources resources = new Resources();
+
+        public AppTest()
+        {
+            RomanNumber.Resources = resources;
+        }
+
         [TestMethod]
         public void TestCalc()
         {
-            CalcProject.App.Calc calc = new();
+            CalcProject.App.Calc calc = new(resources);
             Assert.IsNotNull(calc);
         }
 

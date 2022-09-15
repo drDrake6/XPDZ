@@ -11,6 +11,7 @@ namespace CalcProject.App
         static readonly string rnums = "IVXLCDM";
         static readonly int[] anums = {1, 5, 10, 50, 100, 500, 1000};
         public int val { get; set; }
+        static public Resources Resources { get; set; }
         public RomanNumber(int x)
         {
             val = x;

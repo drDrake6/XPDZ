@@ -8,7 +8,7 @@ namespace CalcProject.App
 {
     public class Resources
     {
-        public static string EmptyStringMessage(string culture = "en-US")
+        public string EmptyStringMessage(string culture = "en-US")
         {
             return culture switch
             {
@@ -18,7 +18,7 @@ namespace CalcProject.App
             };
         }
 
-        public static string NullStringMessage(string culture = "en-US")
+        public string NullStringMessage(string culture = "en-US")
         {
             return culture switch
             {
@@ -28,7 +28,7 @@ namespace CalcProject.App
             };
         }
 
-        public static string NullNumberMessage(string culture = "en-US")
+        public string NullNumberMessage(string culture = "en-US")
         {
             return culture switch
             {
@@ -38,7 +38,7 @@ namespace CalcProject.App
             };
         }
 
-        public static string InvalidArgumentMessage(Type type, string culture = "en-US")
+        public string InvalidArgumentMessage(Type type, string culture = "en-US")
         {
             return culture switch
             {
@@ -48,7 +48,7 @@ namespace CalcProject.App
             };
         }
 
-        public static string NotExistMessage(char digit, string culture = "en-US")
+        public string NotExistMessage(char digit, string culture = "en-US")
         {
             return culture switch
             {
@@ -58,32 +58,42 @@ namespace CalcProject.App
             };
         }
 
-        public static string EnterNumber(char digit, string culture = "en-US")
+        public string EnterNumber(string culture = "en-US")
         {
             return culture switch
             {
-                "en-US" => $"{digit} enter a number",
-                "uk-UA" => $"{digit} введіть число",
+                "en-US" => "enter a number",
+                "uk-UA" => "введіть число",
                 _ => throw new ArgumentException("Culture unsupported")
             };
         }
 
-        public static string EnterOperation(char digit, string culture = "en-US")
+        public string EnterOperation(char digit, string culture = "en-US")
         {
             return culture switch
             {
-                "en-US" => $"{digit} enter an operation",
-                "uk-UA" => $"{digit} введіть операцію",
+                "en-US" => "enter an operation",
+                "uk-UA" => "введіть операцію",
                 _ => throw new ArgumentException("Culture unsupported")
             };
         }
 
-        public static string Result(char digit, string culture = "en-US")
+        public string Result(string res, string culture = "en-US")
         {
             return culture switch
             {
-                "en-US" => $"{digit} result",
-                "uk-UA" => $"{digit} результат",
+                "en-US" => $"result {res}",
+                "uk-UA" => $"результат {res}",
+                _ => throw new ArgumentException("Culture unsupported")
+            };
+        }
+
+        public string ConsoleErr(string culture = "en-US")
+        {
+            return culture switch
+            {
+                "en-US" => $"Console Error",
+                "uk-UA" => $"Помилка консолі",
                 _ => throw new ArgumentException("Culture unsupported")
             };
         }

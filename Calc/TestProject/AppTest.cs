@@ -8,17 +8,17 @@ namespace TestProject
     [TestClass]
     public class AppTest
     {
-        public Resources resources = new Resources();
+        public Resources Resources = new Resources();
 
         public AppTest()
         {
-            RomanNumber.Resources = resources;
+            RomanNumber.Resources = Resources;
         }
 
         [TestMethod]
         public void TestCalc()
         {
-            CalcProject.App.Calc calc = new(resources);
+            CalcProject.App.Calc calc = new(new Resources());
             Assert.IsNotNull(calc);
         }
 
@@ -207,7 +207,7 @@ namespace TestProject
                 ).Message;
             Assert.IsTrue(m.Contains(Resources.NullNumberMessage()) 
                 || m.Contains(Resources.NullStringMessage()));
-        } //doesn't exists
+        }
 
         [TestMethod]
         public void RomanNumberInvalidAdd()
@@ -247,6 +247,20 @@ namespace TestProject
             Assert.IsTrue(Assert.ThrowsException<ArgumentException>(
                     () => RomanNumber.Add(52.36 as object, 2.45 as object)
                 ).Message.StartsWith(Resources.InvalidArgumentMessage(n5.GetType())[..21]));
+        }
+
+        [TestMethod]
+        public void OtherOperationsTest()
+        {
+            RomanNumber n1 = new(1);
+            RomanNumber n2 = new(2);
+            RomanNumber n3 = new(3);
+            RomanNumber n4 = new(4);
+            RomanNumber n5 = new(5);
+            Assert.AreEqual(n1, RomanNumber.Substract(n3, n2));
+            Assert.AreEqual(RomanNumber.Add(n1, n5), RomanNumber.Mult(n3, n2));
+            Assert.AreEqual(RomanNumber.Substract(n3, n1), RomanNumber.Devide(n4, n2));
+            Assert.AreEqual(n1, RomanNumber.Modulo(n3, n2));
         }
     }
 }

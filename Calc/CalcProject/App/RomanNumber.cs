@@ -121,6 +121,13 @@ namespace CalcProject.App
 
             return result;
         }
+
+        public static void CheckNull(RomanNumber left, RomanNumber right)
+        {
+            if (left == null || right == null)
+                throw new ArgumentNullException(Resources.NullNumberMessage());
+        }
+
         public RomanNumber Add(RomanNumber right)
         {            
             return Add(this, right);
@@ -156,9 +163,32 @@ namespace CalcProject.App
 
         public static RomanNumber Add(RomanNumber left, RomanNumber right)
         {
-            if (left == null || right == null)
-                throw new ArgumentNullException(Resources.NullNumberMessage());
+            CheckNull(left, right);
             return new(left.val + right.val);
+        }
+
+        public static RomanNumber Substract(RomanNumber left, RomanNumber right)
+        {
+            CheckNull(left, right);
+            return new(left.val - right.val);
+        }
+
+        public static RomanNumber Mult(RomanNumber left, RomanNumber right)
+        {
+            CheckNull(left, right);
+            return new(left.val * right.val);
+        }
+
+        public static RomanNumber Devide(RomanNumber left, RomanNumber right)
+        {
+            CheckNull(left, right);
+            return new(left.val / right.val);
+        }
+
+        public static RomanNumber Modulo(RomanNumber left, RomanNumber right)
+        {
+            CheckNull(left, right);
+            return new(left.val % right.val);
         }
 
         private RomanNumber(object value)
@@ -175,11 +205,8 @@ namespace CalcProject.App
         {
             RomanNumber rn1, rn2;
 
-            if (obj1 is RomanNumber val1) rn1 = val1;
-            else rn1 = new RomanNumber(obj1);
-
-            if (obj2 is RomanNumber val2) rn2 = val2;
-            else rn2 = new RomanNumber(obj2);
+            rn1 = (obj1 is RomanNumber val1) ? val1 : new RomanNumber(obj1);
+            rn2 = (obj2 is RomanNumber val2) ? val2 : new RomanNumber(obj2);;
 
             return new RomanNumber(rn1.val + rn2.val);
         }
